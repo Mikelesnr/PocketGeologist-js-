@@ -44,13 +44,19 @@ export async function getAllMinerals(page = 1) {
 
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return await response.json();
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const data = await response.json();
+    console.log("API Response:", data); // Debugging
+
+    return {
+      minerals: data.results || [],
+      nextPage: data.next || null,
+      previousPage: data.previous || null,
+    };
   } catch (error) {
     console.error(`Error fetching minerals (Page ${page}):`, error);
-    return null; // Graceful handling in case of failure
+    return { minerals: [], nextPage: null, previousPage: null };
   }
 }
 

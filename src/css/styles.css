@@ -110,7 +110,14 @@ body {
     padding: 50px 20px;
 }
 
-#gallery-container {
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.minerals-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -212,3 +219,6 @@ body {
         font-size: 1.8rem;
     }
 }
+
+/* all minerals page */
+
