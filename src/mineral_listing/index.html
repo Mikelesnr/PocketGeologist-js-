@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pocket Geologist - All Minerals</title>
+    <link
+      rel="shortcut icon"
+      href="/images/site/favicon.ico"
+      type="image/x-icon" />
     <link rel="stylesheet" href="/css/styles.css" />
     <script defer type="module" src="/js/allMinerals.js"></script>
   </head>
@@ -17,6 +21,12 @@
       </div>
       <div class="pagination">
         <button id="prev-page" disabled>Previous</button>
+        <input
+          type="number"
+          id="page-input"
+          min="1"
+          placeholder="Enter page…" />
+        <button id="go-to-page">Go</button>
         <span id="page-number">Page 1</span>
         <button id="next-page">Next</button>
       </div>

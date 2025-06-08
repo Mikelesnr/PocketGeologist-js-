@@ -1,11 +1,8 @@
 import { buildHTML, renderElement, getAllMinerals } from "./utils.mjs";
 
-export async function renderMineralList(page = 1, append = false) {
+export async function renderMineralList(page = 1) {
   const mineralsContainer = document.querySelector("#minerals-container");
-
-  if (!append) {
-    mineralsContainer.innerHTML = ""; // Clear only if loading a new full page
-  }
+  mineralsContainer.innerHTML = ""; // Clear previous content
 
   const { minerals, nextPage, previousPage } = await getAllMinerals(page);
 
@@ -51,5 +48,45 @@ export async function renderMineralList(page = 1, append = false) {
 
   renderElement("#minerals-container", fragment);
 
+  // ✅ Preserve Next & Previous functionality
+  document.querySelector("#page-number").textContent = `Page ${page}`;
+  document.querySelector("#prev-page").disabled = !previousPage;
+  document.querySelector("#next-page").disabled = !nextPage;
+
   return { nextPage, previousPage };
 }
+
+// ✅ Page Selection Logic (Ensures It Works Without Breaking Pagination)
+document.querySelector("#go-to-page").addEventListener("click", () => {
+  const pageInput = document.querySelector("#page-input").value;
+  let pageNumber = parseInt(pageInput, 10);
+
+  if (!isNaN(pageNumber)) {
+    // ✅ Ensure page is within valid range
+    if (pageNumber < 1) pageNumber = 1;
+    if (pageNumber > 616) pageNumber = 616;
+
+    updateMineralPage(pageNumber);
+  } else {
+    alert("Please enter a valid page number!");
+  }
+});
+
+// ✅ Next & Previous Page Logic (Restored Functionality)
+document.querySelector("#next-page").addEventListener("click", () => {
+  const currentPage = parseInt(
+    document.querySelector("#page-number").textContent.replace("Page ", ""),
+    10
+  );
+  renderMineralList(currentPage + 1);
+});
+
+document.querySelector("#prev-page").addEventListener("click", () => {
+  const currentPage = parseInt(
+    document.querySelector("#page-number").textContent.replace("Page ", ""),
+    10
+  );
+  if (currentPage > 1) {
+    renderMineralList(currentPage - 1);
+  }
+});

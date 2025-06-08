@@ -11,7 +11,9 @@ let currentPage = 1;
 let nextPageUrl = null;
 let previousPageUrl = null;
 
-async function updateMineralPage() {
+async function updateMineralPage(page = currentPage) {
+  currentPage = page > 616 ? 616 : page < 1 ? 1 : page; // Ensure page is within valid range
+
   const pageNumberDisplay = document.querySelector("#page-number");
   const prevButton = document.querySelector("#prev-page");
   const nextButton = document.querySelector("#next-page");
@@ -27,18 +29,28 @@ async function updateMineralPage() {
   nextButton.disabled = !nextPageUrl;
 }
 
-// Pagination Handling
+// ✅ **Handle Next & Previous navigation**
 document.querySelector("#next-page").addEventListener("click", () => {
   if (nextPageUrl) {
-    currentPage++;
-    updateMineralPage();
+    updateMineralPage(currentPage + 1);
   }
 });
 
 document.querySelector("#prev-page").addEventListener("click", () => {
   if (previousPageUrl) {
-    currentPage--;
-    updateMineralPage();
+    updateMineralPage(currentPage - 1);
+  }
+});
+
+// ✅ **Handle Manual Page Selection**
+document.querySelector("#go-to-page").addEventListener("click", () => {
+  const pageInput = document.querySelector("#page-input").value;
+  const pageNumber = parseInt(pageInput, 10);
+
+  if (!isNaN(pageNumber) && pageNumber > 0) {
+    updateMineralPage(pageNumber);
+  } else {
+    alert("Please enter a valid page number!");
   }
 });
 
