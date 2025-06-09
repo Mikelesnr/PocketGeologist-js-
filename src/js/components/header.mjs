@@ -31,7 +31,7 @@ export function renderHeader() {
         </div>
       </div>
       <nav class="nav-container"></nav>
-      <div id="notification-container"></div>
+      <div id="notification-container" class="notification-container"></div>
     `
   );
 

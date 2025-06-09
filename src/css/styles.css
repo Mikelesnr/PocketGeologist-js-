@@ -216,15 +216,15 @@ body {
    Popup Styles
    ======================= */
 .popup {
-  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* ✅ This centers the popup */
   background: #2c3e50;
   color: white;
   padding: 25px;
   width: 350px;
+  max-width: 90vw; /* ✅ Prevents overflow */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   z-index: 2000;
@@ -330,7 +330,7 @@ body {
    ======================= */
 #notification-container {
   position: fixed;
-  top: 10px;
+  top: 70px;
   right: 10px;
   width: auto;
   max-width: 300px;
@@ -341,7 +341,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0;
-  transform: translateX(100%);
+  transform: translateX(0);
   transition: 0.5s ease-in-out;
 }
 

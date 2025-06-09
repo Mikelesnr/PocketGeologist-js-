@@ -71,6 +71,4 @@ export async function initGallery() {
   });
 
   renderElement(".gallery-container", fragment);
-
-  console.log("Home gallery populated with clickable minerals.");
 }

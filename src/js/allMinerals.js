@@ -2,6 +2,7 @@ import { renderMineralList } from "./mineralList.mjs";
 import { renderHeader } from "./components/header.mjs";
 import { renderNav } from "./components/nav.mjs";
 import { renderFooter } from "./components/footer.mjs";
+import { showNotification } from "./components/alert.mjs"; // ✅ Import notification system
 
 document.addEventListener("DOMContentLoaded", () => {
   renderHeader(); // Ensures UI updates on page load
@@ -52,7 +53,7 @@ document.querySelector("#go-to-page").addEventListener("click", () => {
   if (!isNaN(pageNumber) && pageNumber > 0) {
     updateMineralPage(pageNumber);
   } else {
-    alert("Please enter a valid page number!");
+    showNotification("Please enter a valid page number!", "error"); // ✅ Replace alert
   }
 });
 

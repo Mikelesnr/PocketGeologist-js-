@@ -1,4 +1,5 @@
 import { getMineralsByNamesOrIds } from "./utils.mjs";
+import { showNotification } from "./components/alert.mjs"; // ✅ Import notification system
 
 export async function renderMineral() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -63,6 +64,7 @@ export async function renderMineral() {
     console.error("Error rendering mineral:", error);
     document.querySelector("#mineral-container").innerHTML =
       "<p>Error loading mineral data.</p>";
+    showNotification("Error loading mineral data.", "error"); // ✅ Replace alert
   }
 }
 
@@ -70,7 +72,7 @@ export async function renderMineral() {
 function addToCollection(mineral) {
   const loggedInUser = localStorage.getItem("loggedInUser");
   if (!loggedInUser) {
-    alert("You need to be logged in to add minerals!");
+    showNotification("You need to be logged in to add minerals!", "error"); // ✅ Replace alert
     return;
   }
 
@@ -80,7 +82,10 @@ function addToCollection(mineral) {
 
   // ✅ Check for existing mineral and exit early
   if (userCollection.find((item) => item.id === mineral.id)) {
-    alert(`${mineral.name} is already in your collection.`);
+    showNotification(
+      `${mineral.name} is already in your collection.`,
+      "warning"
+    ); // ✅ Replace alert
     return;
   }
 
@@ -88,5 +93,6 @@ function addToCollection(mineral) {
   userCollection.push(mineral);
   allCollections[loggedInUser] = userCollection;
   localStorage.setItem("mineralCollections", JSON.stringify(allCollections));
-  alert(`${mineral.name} added to your collection!`);
+
+  showNotification(`${mineral.name} added to your collection!`, "success"); // ✅ Replace alert
 }

@@ -36,7 +36,7 @@ export function createMineralCard(mineral) {
   card.appendChild(formula);
   card.appendChild(discoveryYear);
 
-  // ✅ Wrap card inside anchor tag
+  // Wrap card inside anchor tag
   link.appendChild(card);
 
   return link;
