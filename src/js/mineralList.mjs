@@ -28,17 +28,20 @@ export async function renderMineralList(page = 1) {
     };
 
     const mineralCard = buildHTML(
-      "div",
-      { class: "mineral-card" },
+      "a",
+      {
+        class: "mineral-card",
+        href: `/mineral_page/index.html?id=${encodeURIComponent(mineral.id)}`,
+      },
       `
                 ${imgElement.outerHTML}
                 <div class="card-content">
                     <h3>${mineral.name}</h3>
                     <p>Formula: ${mineral.ima_formula || "Unknown"}</p>
                     <p>Discovered: ${mineral.discovery_year || "N/A"}</p>
-                    <p>${
+                    <!-- <p>${
                       mineral.description_short || "No description available."
-                    }</p>
+                    }</p> -->
                 </div>
             `
     );
@@ -48,7 +51,7 @@ export async function renderMineralList(page = 1) {
 
   renderElement("#minerals-container", fragment);
 
-  // ✅ Preserve Next & Previous functionality
+  //Preserve Next & Previous functionality
   document.querySelector("#page-number").textContent = `Page ${page}`;
   document.querySelector("#prev-page").disabled = !previousPage;
   document.querySelector("#next-page").disabled = !nextPage;
@@ -56,13 +59,13 @@ export async function renderMineralList(page = 1) {
   return { nextPage, previousPage };
 }
 
-// ✅ Page Selection Logic (Ensures It Works Without Breaking Pagination)
+//Page Selection Logic (Ensures It Works Without Breaking Pagination)
 document.querySelector("#go-to-page").addEventListener("click", () => {
   const pageInput = document.querySelector("#page-input").value;
   let pageNumber = parseInt(pageInput, 10);
 
   if (!isNaN(pageNumber)) {
-    // ✅ Ensure page is within valid range
+    //Ensure page is within valid range
     if (pageNumber < 1) pageNumber = 1;
     if (pageNumber > 616) pageNumber = 616;
 
@@ -72,7 +75,7 @@ document.querySelector("#go-to-page").addEventListener("click", () => {
   }
 });
 
-// ✅ Next & Previous Page Logic (Restored Functionality)
+//Next & Previous Page Logic
 document.querySelector("#next-page").addEventListener("click", () => {
   const currentPage = parseInt(
     document.querySelector("#page-number").textContent.replace("Page ", ""),

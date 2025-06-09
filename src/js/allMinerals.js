@@ -3,9 +3,11 @@ import { renderHeader } from "./components/header.mjs";
 import { renderNav } from "./components/nav.mjs";
 import { renderFooter } from "./components/footer.mjs";
 
-renderHeader();
-renderNav();
-renderFooter();
+document.addEventListener("DOMContentLoaded", () => {
+  renderHeader(); // Ensures UI updates on page load
+  renderNav();
+  renderFooter();
+});
 
 let currentPage = 1;
 let nextPageUrl = null;

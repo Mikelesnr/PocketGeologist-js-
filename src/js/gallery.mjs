@@ -21,7 +21,7 @@ export async function initGallery() {
   if (!minerals) {
     minerals = await getMineralsByNamesOrIds({ names: homeGalleryMinerals });
 
-    // Cache the fetched minerals to im prove homr page performance after the first load
+    // Cache the fetched minerals to improve home page performance after the first load
     localStorage.setItem("cachedMinerals", JSON.stringify(minerals));
   }
 
@@ -45,20 +45,24 @@ export async function initGallery() {
       this.src = defaultImagePath;
     };
 
+    //Wrap the mineral card inside a clickable `<a>` tag
     const mineralCard = buildHTML(
-      "div",
-      { class: "mineral-card" },
+      "a",
+      {
+        class: "mineral-card",
+        href: `/mineral_page/index.html?id=${encodeURIComponent(mineral.id)}`,
+      },
       `
-                ${imgElement.outerHTML} <!-- Dynamically inserted image -->
-                <div class="card-content">
-                    <h3>${mineral.name}</h3>
-                    <p>Formula: ${mineral.ima_formula || "Unknown"}</p>
-                    <p>Discovered: ${mineral.discovery_year || "N/A"}</p>
-                    <p>${
-                      mineral.description_short || "No description available."
-                    }</p>
-                </div>
-            `
+        ${imgElement.outerHTML} <!-- Dynamically inserted image -->
+        <div class="card-content">
+          <h3>${mineral.name}</h3>
+          <p>Formula: ${mineral.ima_formula || "Unknown"}</p>
+          <p>Discovered: ${mineral.discovery_year || "N/A"}</p>
+          <!-- <p>${
+            mineral.description_short || "No description available."
+          }</p> -->
+        </div>
+      `
     );
 
     fragment.appendChild(mineralCard);
@@ -66,5 +70,5 @@ export async function initGallery() {
 
   renderElement(".gallery-container", fragment);
 
-  console.log("Home gallery populated with selected minerals.");
+  console.log("Home gallery populated with clickable minerals.");
 }

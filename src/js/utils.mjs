@@ -68,7 +68,6 @@ export async function getMineralsByNamesOrIds({ names = [], ids = [] }) {
 
   try {
     if (names.length > 0) {
-      // Fetch minerals by names
       for (const name of names) {
         const formattedName =
           name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
@@ -78,7 +77,7 @@ export async function getMineralsByNamesOrIds({ names = [], ids = [] }) {
 
         if (response.ok) {
           const data = await response.json();
-          const mineral = data.results?.[0]; // Extract the first result
+          const mineral = data.results?.[0]; // Extract first result
           if (mineral) {
             results.push(mineral);
           } else {
@@ -88,14 +87,16 @@ export async function getMineralsByNamesOrIds({ names = [], ids = [] }) {
           console.warn(`Failed to fetch mineral: ${formattedName}`);
         }
       }
-    } else if (ids.length > 0) {
-      // Fetch minerals by IDs
+    }
+
+    if (ids.length > 0) {
+      // ✅ Fix: Remove unnecessary loop, fetch minerals one at a time
       for (const id of ids) {
-        const response = await fetch(`${baseUrl}&id=${id}`);
+        const response = await fetch(`${baseUrl}&id=${encodeURIComponent(id)}`);
 
         if (response.ok) {
           const data = await response.json();
-          const mineral = data.results?.[0]; // Extract the first result
+          const mineral = data?.results?.find((m) => m.id == id); // ✅ Ensure correct ID match
           if (mineral) {
             results.push(mineral);
           } else {
@@ -105,8 +106,10 @@ export async function getMineralsByNamesOrIds({ names = [], ids = [] }) {
           console.warn(`Failed to fetch mineral with ID: ${id}`);
         }
       }
-    } else {
-      throw new Error("Please provide either names or IDs.");
+    }
+
+    if (results.length === 0) {
+      console.warn("No valid minerals found with provided names or IDs.");
     }
 
     return results;

@@ -9,7 +9,7 @@
       href="/images/site/favicon.ico"
       type="image/x-icon" />
     <link rel="stylesheet" href="/css/styles.css" />
-    <script defer type="module" src="/js/allMinerals.js"></script>
+    <script defer type="module" src="/js/mineral.js"></script>
     <script defer type="module" src="/js/auth/auth.mjs"></script>
   </head>
   <body>
@@ -17,21 +17,10 @@
     <div id="login-popup" class="popup hidden"></div>
     <div id="register-popup" class="popup hidden"></div>
 
-    <section class="minerals">
-      <h1>All Minerals</h1>
-      <div id="minerals-container" class="minerals-container">
-        <!-- Mineral cards will be injected here -->
-      </div>
-      <div class="pagination">
-        <button id="prev-page" disabled>Previous</button>
-        <input
-          type="number"
-          id="page-input"
-          min="1"
-          placeholder="Enter page…" />
-        <button id="go-to-page">Go</button>
-        <span id="page-number">Page 1</span>
-        <button id="next-page">Next</button>
+    <section class="mineral-page">
+      <h1><!-- Mineral Name --></h1>
+      <div id="mineral-container" class="mineral-container">
+        <!-- Mineral details will be injected here -->
       </div>
     </section>
 
