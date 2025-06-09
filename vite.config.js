@@ -15,7 +15,8 @@ export default defineConfig({
           __dirname,
           "src/mineral_collection/index.html"
         ),
-        // auth: resolve(__dirname, "src/auth/index.html"),
+        about: resolve(__dirname, "src/about/index.html"),
+        contact: resolve(__dirname, "src/contact/index.html"),
       },
     },
   },

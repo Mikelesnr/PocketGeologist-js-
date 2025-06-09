@@ -63,7 +63,7 @@ function renderMineralCollection() {
   paginationContainer.innerHTML = `
     <button id="prev-page" class="btn" ${
       currentPage === 1 ? "disabled" : ""
-    }>Previous</button>
+    }>Prev</button>
     <span>Page ${currentPage} of ${totalPages}</span>
     <button id="next-page" class="btn" ${
       currentPage === totalPages ? "disabled" : ""

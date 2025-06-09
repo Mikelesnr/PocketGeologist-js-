@@ -71,6 +71,29 @@ body {
   top: 0;
   z-index: 1000;
 }
+.main-nav {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #2c3e50;
+}
+
+.menu-toggle {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none;
+  margin: 0 auto;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
 
 .main-nav ul {
   display: flex;
@@ -151,34 +174,43 @@ body {
   border-radius: 6px;
 }
 
+.mineral-card p {
+  max-width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pagination input {
+  margin-bottom: 20px;
+}
 /* =======================
    Call to Action (CTA)
-   ======================= */
+======================= */
 .cta {
   text-align: center;
-  padding: 60px;
+  padding: 40px;
   background-color: #1abc9c;
   color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .cta h2 {
   font-size: 2rem;
 }
 
-.cta-button {
-  text-decoration: none;
-  padding: 15px 25px;
-  background-color: #2c3e50;
-  color: white;
+.cta p {
   font-size: 1.2rem;
-  border-radius: 5px;
-  transition: 0.3s;
-  display: inline-block;
-  margin-top: 15px;
 }
 
-.cta-button:hover {
-  background-color: #34495e;
+.cta-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cta-list li {
+  font-size: 1.1rem;
+  padding: 5px 0;
 }
 
 /* =======================
@@ -431,10 +463,123 @@ body {
   padding: 20px;
   text-align: center;
 }
+
 /* =======================
-  Responsive Styles
+  Contact Page Styles
+======================= */
+.contact-container {
+  width: 50%;
+  text-align: center;
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #2c3e50;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 40px auto;
+}
+
+.contact-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #1abc9c;
+  background: white;
+  color: #333;
+}
+
+.btn {
+  background-color: #1abc9c;
+  color: white;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #16a085;
+}
+
+/* =======================
+  About Page Styles
+======================= */
+.about-page {
+  text-align: center;
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #2c3e50;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 40px auto;
+}
+
+.about-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.about-container {
+  text-align: left;
+  padding: 20px;
+}
+
+.about-container h2 {
+  font-size: 2rem;
+  margin-top: 20px;
+  border-bottom: 2px solid #1abc9c;
+  padding-bottom: 5px;
+}
+
+.about-container p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.about-container ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.about-container a {
+  color: #1abc9c;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.about-container a:hover {
+  text-decoration: underline;
+}
+/* =======================
+   Responsive Styles
 ======================= */
 @media (max-width: 768px) {
+  /* =======================
+     Hero Section
+  ======================= */
   .hero h1 {
     font-size: 2.5rem;
   }
@@ -443,21 +588,75 @@ body {
     font-size: 1rem;
   }
 
-  .gallery-container,
-  .minerals-container {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* =======================
+     Navigation
+  ======================= */
+  .menu-toggle {
+    display: block; /* ✅ Show menu button on mobile */
   }
 
+  .nav-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    background: #34495e;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    z-index: 1000;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* =======================
+     Gallery & Minerals
+  ======================= */
+  .gallery-container,
+  .minerals-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mineral-card {
+    width: 95%;
+    max-width: 300px; /* Ensures cards are not too wide on mobile */
+  }
+
+  .pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .btn-pagination {
+    margin: 10px auto;
+  }
+
+  /* =======================
+     Call to Action (CTA)
+  ======================= */
   .cta h2 {
     font-size: 1.8rem;
   }
 
-  .hidden {
-    display: none;
-  }
-
+  /* =======================
+     Collection Page
+  ======================= */
   .collection-container {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    display: flex;
+    flex-direction: column;
   }
 
   .mineral-card h2 {
@@ -466,5 +665,27 @@ body {
 
   .mineral-card img {
     max-width: 140px;
+  }
+
+  /* =======================
+     About Page
+  ======================= */
+  .about-page {
+    margin: 20px;
+  }
+
+  /* =======================
+     Contact Page
+  ======================= */
+  .contact-container {
+    width: 70%;
+    margin: 20px auto;
+  }
+
+  /* =======================
+     General Hidden Class
+  ======================= */
+  .hidden {
+    display: none;
   }
 }

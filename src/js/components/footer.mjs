@@ -11,10 +11,10 @@ export function renderFooter() {
             </div>
             <div class="footer-links">
                 <ul>
-                    <li><a href="/privacy">Privacy Policy</a></li>
-                    <li><a href="/terms">Terms of Service</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/about/index.html">Privacy Policy</a></li>
+                    <li><a href="/about/index.html">Terms of Service</a></li>
+                    <li><a href="/contact/index.html">Contact</a></li>
+                    <li><a href="/about/index.html">About Us</a></li>
                 </ul>
             </div>
             <div class="footer-info">

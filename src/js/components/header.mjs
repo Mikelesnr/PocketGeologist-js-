@@ -21,7 +21,7 @@ export function renderHeader() {
           loggedInUser ? "none" : "flex"
         };">
           <a href="#" id="login-btn">Sign In</a>
-          <a href="#" id="register-btn">Sign Up</a>
+          <a href="#" id="register-btn" class="register-btn">Sign Up</a>
         </div>
         <div class="user-info" style="display: ${
           loggedInUser ? "flex" : "none"
