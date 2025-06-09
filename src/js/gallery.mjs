@@ -15,11 +15,17 @@ export async function initGallery() {
     "Stibnite",
   ];
 
-  const minerals = await getMineralsByNamesOrIds({
-    names: homeGalleryMinerals,
-  });
+  // Check localStorage first
+  let minerals = JSON.parse(localStorage.getItem("cachedMinerals"));
 
-  if (minerals.length === 0) {
+  if (!minerals) {
+    minerals = await getMineralsByNamesOrIds({ names: homeGalleryMinerals });
+
+    // Cache the fetched minerals to im prove homr page performance after the first load
+    localStorage.setItem("cachedMinerals", JSON.stringify(minerals));
+  }
+
+  if (!minerals || minerals.length === 0) {
     galleryContainer.innerHTML = "<p>No minerals found.</p>";
     return;
   }
