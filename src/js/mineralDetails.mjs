@@ -2,17 +2,17 @@ import { getMineralsByNamesOrIds } from "./utils.mjs";
 
 export async function renderMineral() {
   const urlParams = new URLSearchParams(window.location.search);
-  const mineralId = urlParams.get("id");
+  const mineralName = urlParams.get("name");
 
-  if (!mineralId) {
-    console.error("No mineral ID provided in URL");
+  if (!mineralName) {
+    console.error("No mineral name provided in URL");
     document.querySelector("#mineral-container").innerHTML =
       "<p>Mineral not found.</p>";
     return;
   }
 
   try {
-    const minerals = await getMineralsByNamesOrIds({ ids: [mineralId] });
+    const minerals = await getMineralsByNamesOrIds({ names: [mineralName] });
 
     if (minerals.length === 0) {
       console.warn("Mineral not found.");
@@ -24,10 +24,9 @@ export async function renderMineral() {
     const mineral = minerals[0];
     const isLoggedIn = localStorage.getItem("loggedInUser"); // Check if user is logged in
 
-    document.querySelector("h1").textContent = mineral.name;
     document.querySelector("#mineral-container").innerHTML = `
-      <div class="mineral-card">
-        <h2>${mineral.name}</h2>
+      <section class="mineral-detail">
+        <h1>${mineral.name}</h1>
         <img src="/images/minerals/${mineral.name}.jpg" alt="${mineral.name}">
         <p><strong>IMA Formula:</strong> ${
           mineral.ima_formula || "Not Available"
@@ -52,7 +51,7 @@ export async function renderMineral() {
             ? `<button id="add-to-collection" class="collection-btn">Add to Collection</button>`
             : ""
         }
-      </div>
+      </section>
     `;
 
     if (isLoggedIn) {
@@ -79,13 +78,15 @@ function addToCollection(mineral) {
     JSON.parse(localStorage.getItem("mineralCollections")) || {};
   let userCollection = allCollections[loggedInUser] || [];
 
-  // Avoid duplicate entries
-  if (!userCollection.some((item) => item.id === mineral.id)) {
-    userCollection.push(mineral);
-    allCollections[loggedInUser] = userCollection;
-    localStorage.setItem("mineralCollections", JSON.stringify(allCollections));
-    alert(`${mineral.name} added to your collection!`);
-  } else {
+  // ✅ Check for existing mineral and exit early
+  if (userCollection.find((item) => item.id === mineral.id)) {
     alert(`${mineral.name} is already in your collection.`);
+    return;
   }
+
+  // ✅ Add mineral if it isn't already in collection
+  userCollection.push(mineral);
+  allCollections[loggedInUser] = userCollection;
+  localStorage.setItem("mineralCollections", JSON.stringify(allCollections));
+  alert(`${mineral.name} added to your collection!`);
 }

@@ -1,8 +1,11 @@
+import { closePopup } from "../components/popup.mjs";
+import { showNotification } from "../components/alert.mjs";
+import { renderHeader } from "../components/header.mjs";
+import { renderNav } from "../components/nav.mjs";
 import { renderLoginPopup } from "./login.mjs";
 import { renderRegisterPopup } from "./register.mjs";
-import { renderHeader } from "../components/header.mjs"; // ✅ Ensure header updates dynamically
-import { renderNav } from "../components/nav.mjs";
 
+// Ensure popups are injected on page load
 document.addEventListener("DOMContentLoaded", () => {
   const loginPopupContainer = document.getElementById("login-popup");
   const registerPopupContainer = document.getElementById("register-popup");
@@ -12,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loginPopupContainer.innerHTML = renderLoginPopup();
     registerPopupContainer.innerHTML = renderRegisterPopup();
 
-    // Attach event listeners AFTER popups are injected
     setTimeout(() => {
       document.getElementById("login-submit")?.addEventListener("click", () => {
         console.log("Login button clicked");
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Close popups when clicking outside
+// outside click functionality to close popups
 document.addEventListener("click", (event) => {
   const loginPopup = document.getElementById("login-popup");
   const registerPopup = document.getElementById("register-popup");
@@ -54,29 +56,23 @@ export function registerUser() {
   const password = document.getElementById("register-password").value;
 
   if (!username || !password) {
-    alert("Please fill in all fields.");
+    showNotification("Please fill in all fields.");
     return;
   }
 
-  // Check if user already exists
-  const existingUser = JSON.parse(localStorage.getItem("user"));
-  if (existingUser && existingUser.username === username) {
-    alert("Username already exists. Try a different one.");
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  if (users[username]) {
+    showNotification("Username already exists. Try a different one.");
     return;
   }
 
-  // Store user data securely
-  const hashedPassword = btoa(password);
-  localStorage.setItem(
-    "user",
-    JSON.stringify({ username, password: hashedPassword })
-  );
+  users[username] = { password: btoa(password) };
+  localStorage.setItem("users", JSON.stringify(users));
   localStorage.setItem("loggedInUser", username);
 
-  alert("Registration successful!");
+  showNotification("Registration successful!");
   closePopup("register-popup");
 
-  // ✅ Fix: Re-render header after registration
   renderHeader();
 }
 
@@ -85,55 +81,26 @@ export function loginUser() {
   const username = document.getElementById("login-username").value.trim();
   const password = document.getElementById("login-password").value;
 
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-
-  if (
-    !storedUser ||
-    storedUser.username !== username ||
-    storedUser.password !== btoa(password)
-  ) {
-    alert("Invalid username or password. Please try again.");
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  if (!users[username] || users[username].password !== btoa(password)) {
+    showNotification(
+      "Invalid username or password. Please try again.",
+      "error"
+    );
     return;
   }
 
-  // Store logged-in user
   localStorage.setItem("loggedInUser", username);
-  alert(`Welcome back, ${username}!`);
+  showNotification(`Welcome back, ${username}!`);
   closePopup("login-popup");
 
-  renderHeader(); // Refresh header after login
-  renderNav(); // Refresh navigation after login
+  renderHeader();
+  renderNav();
 }
 
-// Logout Function
+//Logout Functionality
 export function logoutUser() {
   localStorage.removeItem("loggedInUser");
-
-  // ✅ Fix: Re-render header after logout
-  renderHeader();
-}
-
-// Popup Handlers
-export function openPopup(id) {
-  console.log(`Trying to open popup: ${id}`);
-  const popup = document.getElementById(id);
-  if (popup) {
-    popup.classList.remove("hidden");
-    popup.style.display = "block";
-    console.log(`Popup ${id} opened successfully`);
-  } else {
-    console.error(`Popup with ID '${id}' not found.`);
-  }
-}
-
-export function closePopup(id) {
-  console.log(`Trying to close popup: ${id}`);
-  const popup = document.getElementById(id);
-  if (popup) {
-    popup.classList.add("hidden");
-    popup.style.display = "none";
-    console.log(`Popup ${id} closed successfully`);
-  } else {
-    console.error(`Popup with ID '${id}' not found.`);
-  }
+  renderHeader(); // Refresh header after logout
+  renderNav(); // Refresh navigation
 }

@@ -1,4 +1,12 @@
 export function createMineralCard(mineral) {
+  // Create anchor tag for navigation
+  const link = document.createElement("a");
+  link.href = `/mineral_page/index.html?name=${encodeURIComponent(
+    mineral.name
+  )}`;
+  link.classList.add("mineral-link"); // Optional: Add a class for styling
+
+  // Create card container
   const card = document.createElement("div");
   card.classList.add("mineral-card");
 
@@ -22,19 +30,16 @@ export function createMineralCard(mineral) {
     mineral.discovery_year || "Unknown"
   }`;
 
-  // Short description
-  const description = document.createElement("p");
-  description.innerHTML =
-    mineral.description_short || "No description available.";
-
-  // Append elements
+  // Append elements to card
   card.appendChild(img);
   card.appendChild(title);
   card.appendChild(formula);
   card.appendChild(discoveryYear);
-  card.appendChild(description);
 
-  return card;
+  // ✅ Wrap card inside anchor tag
+  link.appendChild(card);
+
+  return link;
 }
 
 export async function getAllMinerals(page = 1) {

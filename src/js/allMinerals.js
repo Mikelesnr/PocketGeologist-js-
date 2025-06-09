@@ -31,7 +31,7 @@ async function updateMineralPage(page = currentPage) {
   nextButton.disabled = !nextPageUrl;
 }
 
-// ✅ **Handle Next & Previous navigation**
+//**Handle Next & Previous navigation**
 document.querySelector("#next-page").addEventListener("click", () => {
   if (nextPageUrl) {
     updateMineralPage(currentPage + 1);
@@ -44,7 +44,7 @@ document.querySelector("#prev-page").addEventListener("click", () => {
   }
 });
 
-// ✅ **Handle Manual Page Selection**
+//**Handle Manual Page Selection**
 document.querySelector("#go-to-page").addEventListener("click", () => {
   const pageInput = document.querySelector("#page-input").value;
   const pageNumber = parseInt(pageInput, 10);

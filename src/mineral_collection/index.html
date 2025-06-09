@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pocket Geologist - My Collection</title>
+    <link
+      rel="shortcut icon"
+      href="/images/site/favicon.ico"
+      type="image/x-icon" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script defer type="module" src="/js/mineral-collection.js"></script>
+    <script defer type="module" src="/js/auth/auth.mjs"></script>
+  </head>
+  <body>
+    <div id="notification-container"></div>
+    <header class="header-container"></header>
+    <div id="login-popup" class="popup hidden"></div>
+    <div id="register-popup" class="popup hidden"></div>
+
+    <section class="collection-page">
+      <h1><!-- collection owner --></h1>
+      <div id="collection-container" class="collection-container">
+        <!-- Minerals will be injected here -->
+      </div>
+      <div id="pagination-container" class="pagination-controls">
+        <!-- Pagination will be injected separately here -->
+      </div>
+    </section>
+
+    <footer class="footer-container"></footer>
+  </body>
+</html>

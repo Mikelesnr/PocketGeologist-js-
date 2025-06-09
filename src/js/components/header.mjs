@@ -1,12 +1,14 @@
 import { buildHTML, renderElement } from "../utils.mjs";
-import { openPopup, logoutUser } from "../auth/auth.mjs";
+import { logoutUser } from "../auth/auth.mjs";
+import { openPopup } from "./popup.mjs";
 import { renderNav } from "./nav.mjs";
 
 export function renderHeader() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const isLoggedIn = localStorage.getItem("loggedInUser"); // Check actual login status
+  const loggedInUser = localStorage.getItem("loggedInUser"); // Get the current logged-in username
+  const users = JSON.parse(localStorage.getItem("users")) || {}; // Retrieve all users
+  const user = loggedInUser ? users[loggedInUser] : null; // Find the specific logged-in user's data
 
-  //Remove any existing header before re-rendering
+  // Remove any existing header before re-rendering
   document.querySelector(".header-container").innerHTML = "";
 
   const headerHTML = buildHTML(
@@ -16,19 +18,20 @@ export function renderHeader() {
       <div class="header-content">
         <img src="/images/site/logo.png" alt="Pocket Geologist Logo" class="site-logo">
         <div class="auth-links" style="display: ${
-          isLoggedIn ? "none" : "flex"
+          loggedInUser ? "none" : "flex"
         };">
           <a href="#" id="login-btn">Sign In</a>
           <a href="#" id="register-btn">Sign Up</a>
         </div>
         <div class="user-info" style="display: ${
-          isLoggedIn ? "flex" : "none"
+          loggedInUser ? "flex" : "none"
         };">
-          <span>Welcome, ${isLoggedIn ? user?.username : ""}!</span>
-          <button id="logout-btn">Logout</button>
+          <span>${loggedInUser ? loggedInUser : ""}</span>
+          <button id="logout-btn" class="logout-btn">Logout</button>
         </div>
       </div>
       <nav class="nav-container"></nav>
+      <div id="notification-container"></div>
     `
   );
 

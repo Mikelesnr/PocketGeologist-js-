@@ -50,7 +50,9 @@ export async function initGallery() {
       "a",
       {
         class: "mineral-card",
-        href: `/mineral_page/index.html?id=${encodeURIComponent(mineral.id)}`,
+        href: `/mineral_page/index.html?name=${encodeURIComponent(
+          mineral.name
+        )}`,
       },
       `
         ${imgElement.outerHTML} <!-- Dynamically inserted image -->

@@ -12,6 +12,10 @@ body {
   min-height: 100vh;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* =======================
    Header Styles
    ======================= */
@@ -36,18 +40,27 @@ body {
   height: 50px;
 }
 
-.auth-links {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 10px;
+/* =======================
+   Authentication & User Info Styles
+   ======================= */
+.auth-links a,
+.user-info span {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
 }
 
-.auth-links a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  font-weight: bold;
+.auth-links a:hover {
+  background-color: #16a085; /* Slightly darker green for hover effect */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* =======================
@@ -208,7 +221,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #2c3e50; /* Matching header/nav */
+  background: #2c3e50;
   color: white;
   padding: 25px;
   width: 350px;
@@ -248,49 +261,30 @@ body {
 }
 
 /* =======================
-   Pagination Styles
+   Interactive Button Styles
    ======================= */
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-#page-input {
-  width: 60px;
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #2c3e50;
-  border-radius: 5px;
-}
-
-#go-to-page {
-  background-color: #2c3e50;
+.collection-btn,
+.logout-btn {
+  background-color: #1abc9c;
   color: white;
-  padding: 8px 12px;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 
-#go-to-page:hover {
-  background-color: #1abc9c;
+.collection-btn:hover,
+.logout-btn:hover {
+  background-color: #16a085;
 }
 
 /* =======================
-   Mineral Detail Page Styles
+   Comment Section Styles
    ======================= */
-.mineral-page {
-  text-align: center;
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.mineral-card {
-  background: #2c3e50; /* Match site theme */
+.comment-section {
+  background: #2c3e50;
   color: white;
   padding: 20px;
   border-radius: 8px;
@@ -299,36 +293,147 @@ body {
   margin: 0 auto;
 }
 
-.mineral-card h2 {
-  font-size: 2rem;
+.comment-section h3 {
+  font-size: 1.8rem;
   margin-bottom: 15px;
+  text-align: center;
+}
+
+.comment-box {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #1abc9c;
+  border-radius: 5px;
+  background: white;
+  color: #333;
+}
+
+.comment-btn,
+.btn {
+  background-color: #1abc9c;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.comment-btn:hover,
+.btn:hover {
+  background-color: #16a085;
+}
+
+/* =======================
+   Custom Notifications
+   ======================= */
+#notification-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: auto;
+  max-width: 300px;
+  padding: 12px;
+  background-color: #1abc9c;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: 0.5s ease-in-out;
+}
+
+.notification-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =======================
+   Mineral Detail Page Styles
+   ======================= */
+.mineral-detail {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mineral-detail h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.mineral-detail img {
+  width: 100%;
+  max-width: 600px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.mineral-detail p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* =======================
+   Mineral Collection Card Styles
+   ======================= */
+.collection-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  ); /* Match gallery layout */
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.mineral-card {
+  background: white;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-in-out;
+  text-align: center;
+}
+
+.mineral-card:hover {
+  transform: scale(1.05);
 }
 
 .mineral-card img {
   width: 100%;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 15px;
+  max-width: 180px;
+  border-radius: 4px;
+}
+
+.mineral-card h2 {
+  font-size: 1.4rem; /* Match gallery card text size */
+  margin: 8px 0;
 }
 
 .mineral-card p {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  line-height: 1.5;
+  font-size: 1rem;
+  margin-bottom: 6px;
 }
 
-.mineral-container {
+.collection-page,
+.minerals-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
 }
-
 /* =======================
-   Responsive Styles
-   ======================= */
+  Responsive Styles
+======================= */
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2.5rem;
@@ -349,5 +454,17 @@ body {
 
   .hidden {
     display: none;
+  }
+
+  .collection-container {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .mineral-card h2 {
+    font-size: 1.2rem;
+  }
+
+  .mineral-card img {
+    max-width: 140px;
   }
 }

@@ -31,7 +31,9 @@ export async function renderMineralList(page = 1) {
       "a",
       {
         class: "mineral-card",
-        href: `/mineral_page/index.html?id=${encodeURIComponent(mineral.id)}`,
+        href: `/mineral_page/index.html?name=${encodeURIComponent(
+          mineral.name
+        )}`,
       },
       `
                 ${imgElement.outerHTML}
