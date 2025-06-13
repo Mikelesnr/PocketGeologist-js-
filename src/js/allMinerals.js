@@ -5,9 +5,15 @@ import { renderFooter } from "./components/footer.mjs";
 import { showNotification } from "./components/alert.mjs"; // ✅ Import notification system
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderHeader(); // Ensures UI updates on page load
+  renderHeader();
   renderNav();
   renderFooter();
+
+  // Retrieve stored page if available
+  const storedPage = localStorage.getItem("currentPage");
+  currentPage = storedPage ? parseInt(storedPage, 10) : 1;
+
+  updateMineralPage(currentPage);
 });
 
 let currentPage = 1;
@@ -17,6 +23,9 @@ let previousPageUrl = null;
 async function updateMineralPage(page = currentPage) {
   currentPage = page > 616 ? 616 : page < 1 ? 1 : page; // Ensure page is within valid range
 
+  // Store current page for persistence
+  localStorage.setItem("currentPage", currentPage);
+
   const pageNumberDisplay = document.querySelector("#page-number");
   const prevButton = document.querySelector("#prev-page");
   const nextButton = document.querySelector("#next-page");
@@ -24,12 +33,6 @@ async function updateMineralPage(page = currentPage) {
   pageNumberDisplay.textContent = `Page ${currentPage}`;
 
   const { nextPage, previousPage } = await renderMineralList(currentPage);
-
-  nextPageUrl = nextPage;
-  previousPageUrl = previousPage;
-
-  prevButton.disabled = !previousPageUrl;
-  nextButton.disabled = !nextPageUrl;
 }
 
 //**Handle Next & Previous navigation**
@@ -53,9 +56,6 @@ document.querySelector("#go-to-page").addEventListener("click", () => {
   if (!isNaN(pageNumber) && pageNumber > 0) {
     updateMineralPage(pageNumber);
   } else {
-    showNotification("Please enter a valid page number!", "error"); // ✅ Replace alert
+    showNotification("Please enter a valid page number!", "error"); // Replace alert
   }
 });
-
-// Initial Render
-updateMineralPage();

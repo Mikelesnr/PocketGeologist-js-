@@ -95,7 +95,6 @@ export async function getMineralsByNamesOrIds({ names = [], ids = [] }) {
     }
 
     if (ids.length > 0) {
-      // ✅ Fix: Remove unnecessary loop, fetch minerals one at a time
       for (const id of ids) {
         const response = await fetch(`${baseUrl}&id=${encodeURIComponent(id)}`);
 
