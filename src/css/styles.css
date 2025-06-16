@@ -593,7 +593,7 @@ textarea {
      Navigation
   ======================= */
   .menu-toggle {
-    display: block; /* ✅ Show menu button on mobile */
+    display: block; /*Show menu button on mobile */
   }
 
   .nav-container {

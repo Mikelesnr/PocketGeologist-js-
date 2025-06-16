@@ -1,5 +1,5 @@
 import { getMineralsByNamesOrIds } from "./utils.mjs";
-import { showNotification } from "./components/alert.mjs"; // ✅ Import notification system
+import { showNotification } from "./components/alert.mjs";
 
 export async function renderMineral(name = null, page = null) {
   const urlParams = new URLSearchParams(window.location.search);
@@ -66,7 +66,7 @@ export async function renderMineral(name = null, page = null) {
     console.error("Error rendering mineral:", error);
     document.querySelector("#mineral-container").innerHTML =
       "<p>Error loading mineral data.</p>";
-    showNotification("Error loading mineral data.", "error"); // ✅ Replace alert
+    showNotification("Error loading mineral data.", "error");
   }
 }
 
@@ -74,7 +74,7 @@ export async function renderMineral(name = null, page = null) {
 function addToCollection(mineral) {
   const loggedInUser = localStorage.getItem("loggedInUser");
   if (!loggedInUser) {
-    showNotification("You need to be logged in to add minerals!", "error"); // ✅ Replace alert
+    showNotification("You need to be logged in to add minerals!", "error");
     return;
   }
 
@@ -82,19 +82,19 @@ function addToCollection(mineral) {
     JSON.parse(localStorage.getItem("mineralCollections")) || {};
   let userCollection = allCollections[loggedInUser] || [];
 
-  // ✅ Check for existing mineral and exit early
+  //Check for existing mineral and exit early
   if (userCollection.find((item) => item.id === mineral.id)) {
     showNotification(
       `${mineral.name} is already in your collection.`,
       "warning"
-    ); // ✅ Replace alert
+    );
     return;
   }
 
-  // ✅ Add mineral if it isn't already in collection
+  //Add mineral if it isn't already in collection
   userCollection.push(mineral);
   allCollections[loggedInUser] = userCollection;
   localStorage.setItem("mineralCollections", JSON.stringify(allCollections));
 
-  showNotification(`${mineral.name} added to your collection!`, "success"); // ✅ Replace alert
+  showNotification(`${mineral.name} added to your collection!`, "success");
 }

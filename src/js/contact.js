@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       emailjs
         .sendForm(
-          `1${import.meta.env.VITE_SERVICE_ID}`,
+          `${import.meta.env.VITE_SERVICE_ID}`,
           `${import.meta.env.VITE_TEMPLATE_ID}`,
           this
         )
