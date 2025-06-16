@@ -13,6 +13,8 @@ export async function initGallery() {
     "Fluorite",
     "Microcline",
     "Stibnite",
+    "Ajoite",
+    "Adamite",
   ];
 
   // Check localStorage first

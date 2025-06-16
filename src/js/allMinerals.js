@@ -78,8 +78,8 @@ document
       showNotification(`Displaying results for "${query}"`, "success");
     } catch (error) {
       showNotification(
-        "Error retrieving mineral data. Please try again.",
-        "error"
+        "We do not have that mineral in our database, please check spelling or try another",
+        "warning"
       );
       console.error(error);
     }

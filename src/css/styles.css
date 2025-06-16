@@ -375,6 +375,7 @@ body {
   opacity: 0;
   transform: translateX(0);
   transition: 0.5s ease-in-out;
+  z-index: 2000;
 }
 
 .notification-show {
