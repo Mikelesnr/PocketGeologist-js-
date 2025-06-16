@@ -1,9 +1,9 @@
 import { getMineralsByNamesOrIds } from "./utils.mjs";
 import { showNotification } from "./components/alert.mjs"; // ✅ Import notification system
 
-export async function renderMineral() {
+export async function renderMineral(name = null, page = null) {
   const urlParams = new URLSearchParams(window.location.search);
-  const mineralName = urlParams.get("name");
+  const mineralName = name ? name : urlParams.get("name");
 
   if (!mineralName) {
     console.error("No mineral name provided in URL");
@@ -25,7 +25,9 @@ export async function renderMineral() {
     const mineral = minerals[0];
     const isLoggedIn = localStorage.getItem("loggedInUser"); // Check if user is logged in
 
-    document.querySelector("#mineral-container").innerHTML = `
+    document.querySelector(
+      `${page ? page : "#mineral-container"}`
+    ).innerHTML = `
       <section class="mineral-detail">
         <h1>${mineral.name}</h1>
         <img src="/images/minerals/${mineral.name}.jpg" alt="${mineral.name}">

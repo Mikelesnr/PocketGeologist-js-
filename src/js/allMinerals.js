@@ -2,7 +2,8 @@ import { renderMineralList } from "./mineralList.mjs";
 import { renderHeader } from "./components/header.mjs";
 import { renderNav } from "./components/nav.mjs";
 import { renderFooter } from "./components/footer.mjs";
-import { showNotification } from "./components/alert.mjs"; // ✅ Import notification system
+import { showNotification } from "./components/alert.mjs";
+import { renderMineral } from "./mineralDetails.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
   renderHeader();
@@ -59,3 +60,27 @@ document.querySelector("#go-to-page").addEventListener("click", () => {
     showNotification("Please enter a valid page number!", "error"); // Replace alert
   }
 });
+
+document
+  .getElementById("search-form")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const query = document.getElementById("search-input").value.trim();
+
+    if (!query) {
+      showNotification("Please enter a valid search term!", "warning");
+      return;
+    }
+
+    try {
+      await renderMineral(query, "#minerals-container"); // Call renderMineral with the search query
+      showNotification(`Displaying results for "${query}"`, "success");
+    } catch (error) {
+      showNotification(
+        "Error retrieving mineral data. Please try again.",
+        "error"
+      );
+      console.error(error);
+    }
+  });

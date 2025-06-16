@@ -7,7 +7,8 @@
     <link
       rel="shortcut icon"
       href="/images/site/favicon.ico"
-      type="image/x-icon" />
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="/css/styles.css" />
     <script defer type="module" src="/js/allMinerals.js"></script>
     <script defer type="module" src="/js/auth/auth.mjs"></script>
@@ -20,6 +21,18 @@
 
     <section class="minerals-page">
       <h1>All Minerals</h1>
+      <div class="search">
+        <form id="search-form">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search minerals..."
+          />
+          <button type="submit" class="btn">Search</button>
+        </form>
+        <div id="search-results"></div>
+      </div>
+
       <div id="minerals-container" class="minerals-container">
         <!-- Mineral cards will be injected here -->
       </div>
@@ -28,7 +41,8 @@
           type="number"
           id="page-input"
           min="1"
-          placeholder="Enter page…" />
+          placeholder="Enter page…"
+        />
         <button id="go-to-page" class="btn btn-pagination">Go</button>
         <span id="page-number">Page 1</span>
         <button id="prev-page" class="btn btn-pagination" disabled>Prev</button>

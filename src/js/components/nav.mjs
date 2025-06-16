@@ -6,7 +6,7 @@ export function renderNav() {
     { class: "main-nav" },
     `
       <button id="menu-toggle" class="menu-toggle">&#9776;</button>
-      <ul id="nav-menu" class="nav-menu">
+      <ul id="nav-menu" class="nav-menu hide-nav">
         <li><a href="/">Home</a></li>
         <li><a href="/mineral_listing/index.html">All Minerals</a></li>
         <li><a href="/mineral_collection/index.html">My Collection</a></li>
@@ -20,6 +20,6 @@ export function renderNav() {
 
   // ✅ Add toggle functionality for mobile menu
   document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("nav-menu").classList.toggle("hidden");
+    document.getElementById("nav-menu").classList.toggle("hide-nav");
   });
 }

@@ -7,9 +7,10 @@
     <link
       rel="shortcut icon"
       href="/images/site/favicon.ico"
-      type="image/x-icon" />
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="/css/styles.css" />
-    <script defer type="module" src="/js/about.js"></script>
+    <script defer type="module" src="/js/contact.js"></script>
     <script defer type="module" src="/js/auth/auth.mjs"></script>
   </head>
   <body>
@@ -20,17 +21,15 @@
 
     <section class="contact-container">
       <h2>Contact Us</h2>
-      <form
-        action="mailto:mwanza.n.m@gmail.com"
-        method="POST"
-        enctype="text/plain">
+      <form id="contact-form">
         <label for="name">Name:</label>
         <input
           type="text"
           id="name"
           name="name"
           required
-          placeholder="Enter your name" />
+          placeholder="Enter your name"
+        />
 
         <label for="email">Email:</label>
         <input
@@ -38,7 +37,8 @@
           id="email"
           name="email"
           required
-          placeholder="Enter your email" />
+          placeholder="Enter your email"
+        />
 
         <label for="message">Message:</label>
         <textarea
@@ -46,7 +46,8 @@
           name="message"
           rows="5"
           required
-          placeholder="Write your message"></textarea>
+          placeholder="Write your message"
+        ></textarea>
 
         <button type="submit" class="btn">Send Message</button>
       </form>
